@@ -101,7 +101,7 @@ For questions about QuPath and/or creating new extensions, please use the forum 
 ## License
 
 This is just a template, you're free to use it however you like.
-You can treat the contents of *this repository only* as being under [the Unlicense](https://unlicense.org).
+You can treat the contents of *this repository only* as being under [the Unlicense](https://unlicense.org) (except for the Gradle wrapper, which has its own license included).
 
 If you use it to create a new QuPath extension, I'd strongly encourage you to select a suitable open-source license for the extension.
 
