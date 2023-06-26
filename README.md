@@ -2,8 +2,10 @@
 
 This repo contains a template and instructions to help create a new extension for [QuPath](https://qupath.github.io).
 
-It already contains a minimal extension, so the first task is to make sure that works.
-Then, it's a matter of customizing it to make it more useful.
+It already contains two minimal extensions, so the first task is to make sure that they work.
+Then, it's a matter of customizing the code to make it more useful.
+
+> There are two extensions to show that you can use either Java or Groovy.
 
 ## Build the extension
 
@@ -65,12 +67,17 @@ These point you towards parts you may well need to change.
 
 Open `build.gradle` and follow a similar process to with `settings.gradle`, to update the bits flagged with `\\TODO`.
 
-### Create the extension Java file(s)
+### Create the extension Java or Groovy file(s)
 
-For the extension to work, you need to create at least one Java file that extends `qupath.lib.gui.extensions.QuPathExtension`.
+For the extension to work, you need to create at least one file that extends `qupath.lib.gui.extensions.QuPathExtension`.
 
-For the template, this is `qupath.ext.template.DemoExtension.java`.
-Find that file, rename it, edit it, move it to another package... basically, make it your own.
+There are two examples in the template, in two languages:
+* **Java:** `qupath.ext.template.DemoExtension.java`.
+* **Groovy:** `qupath.ext.template.DemoGroovyExtension.java`.
+
+You can pick the one that corresponds to the language you want to use, and delete the other.
+
+Then take your chosen file and rename it, edit it, move it to another package... basically, make it your own.
 
 > Please **don't neglect this step!** 
 > If you do, there's a chance of multiple extensions being created with the same class names... and causing confusion later.
