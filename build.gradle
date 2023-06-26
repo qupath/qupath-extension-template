@@ -1,6 +1,8 @@
 plugins {
   // Main gradle plugin for building a Java library
   id 'java-library'
+  // Support writing the extension in Groovy (remove this if you don't want to)
+  id 'groovy'
   // To create a shadow/fat jar that bundle up all dependencies
   id 'com.github.johnrengelman.shadow' version '7.1.2'
   // Include this plugin to avoid downloading JavaCPP dependencies for all platforms
@@ -44,9 +46,13 @@ dependencies {
     // See https://docs.gradle.org/current/userguide/platforms.html
     shadow libs.slf4j
 
+    // If you aren't using Groovy, this can be removed
+    shadow libs.bundles.groovy
+
     testImplementation "io.github.qupath:qupath-gui-fx:${qupathVersion}"
     testImplementation libs.junit
 }
+
 
 /*
  * Manifest info

@@ -23,6 +23,9 @@ gradle.properties
 .project
 .classpath
 
+# VSCode
+.vscode/
+
 # Mac
 .DS_Store
 
