@@ -30,7 +30,7 @@ public class DemoExtension implements QuPathExtension {
 	/**
 	 * Display name for your extension
 	 */
-	private final static String EXTENSION_NAME = "My extension";
+	private final static String EXTENSION_NAME = "My Java extension";
 
 	/**
 	 * Short description, used under 'Extensions > Installed extensions'
@@ -75,9 +75,7 @@ public class DemoExtension implements QuPathExtension {
 				Boolean.class,
 				"Enable my extension",
 				EXTENSION_NAME,
-				"Enable Py4J through the UI to accept connections - "
-						+ "this enables QuPath to communicate with Python.\n"
-						+ "See www.py4j.org for more info.");
+				"Enable my extension");
 	}
 
 	/**
@@ -88,9 +86,10 @@ public class DemoExtension implements QuPathExtension {
 		var menu = qupath.getMenu("Extensions>" + EXTENSION_NAME, true);
 		MenuItem menuItem = new MenuItem("My menu item");
 		menuItem.setOnAction(e -> {
-			Dialogs.showMessageDialog("My extension",
-					"Hello! This is my extension.");
+			Dialogs.showMessageDialog(EXTENSION_NAME,
+					"Hello! This is my Java extension.");
 		});
+		menuItem.disableProperty().bind(enableExtensionProperty.not());
 		menu.getItems().add(menuItem);
 	}
 	
