@@ -17,7 +17,7 @@ import qupath.lib.gui.prefs.PathPrefs;
  * It doesn't do much - it just shows how to add a menu item and a preference.
  * See the code and comments below for more info.
  * <p>
- * <b>Important!</b> For your extension to work in QuPath, you need to make sure the name & package
+ * <b>Important!</b> For your extension to work in QuPath, you need to make sure the name &amp; package
  * of this class is consistent with the file
  * <pre>
  *     /resources/META-INF/services/qupath.lib.gui.extensions.QuPathExtension
