@@ -25,23 +25,23 @@ import qupath.lib.gui.prefs.PathPrefs;
  */
 public class DemoExtension implements QuPathExtension {
 	
-	private final static Logger logger = LoggerFactory.getLogger(DemoExtension.class);
+	private static final Logger logger = LoggerFactory.getLogger(DemoExtension.class);
 
 	/**
 	 * Display name for your extension
 	 */
-	private final static String EXTENSION_NAME = "My Java extension";
+	private static final String EXTENSION_NAME = "My Java extension";
 
 	/**
 	 * Short description, used under 'Extensions > Installed extensions'
 	 */
-	private final static String EXTENSION_DESCRIPTION = "This is just a demo to show how extensions work";
+	private static final String EXTENSION_DESCRIPTION = "This is just a demo to show how extensions work";
 
 	/**
 	 * QuPath version that the extension is designed to work with.
 	 * This allows QuPath to inform the user if it seems to be incompatible.
 	 */
-	private final static Version EXTENSION_QUPATH_VERSION = Version.parse("v0.4.0");
+	private static final Version EXTENSION_QUPATH_VERSION = Version.parse("v0.4.0");
 
 	/**
 	 * Flag whether the extension is already installed (might not be needed... but we'll do it anyway)
