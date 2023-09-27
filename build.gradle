@@ -13,7 +13,6 @@ plugins {
 ext.moduleName = 'io.github.qupath.extension.template'
 
 // TODO: Define the extension version & provide a short description
-version = "0.1.0-SNAPSHOT"
 description = 'A simple QuPath extension template'
 
 // TODO: Specify the QuPath version, compatible with the extension.
@@ -22,7 +21,7 @@ ext.qupathVersion = gradle.ext.qupathVersion
 
 // TODO: Specify the Java version compatible with the extension
 // Generally 11 for QuPath v0.4.3, but will be 17 for QuPath v0.5.0
-ext.qupathJavaVersion = 11
+ext.qupathJavaVersion = 17
 
 /**
  * Define dependencies.

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import qupath.lib.common.Version;
 import qupath.lib.gui.QuPathGUI;
 import qupath.lib.gui.dialogs.Dialogs;
+import qupath.lib.gui.extensions.GitHubProject;
 import qupath.lib.gui.extensions.QuPathExtension;
 import qupath.lib.gui.prefs.PathPrefs;
 
@@ -23,17 +24,19 @@ import qupath.lib.gui.prefs.PathPrefs;
  *     /resources/META-INF/services/qupath.lib.gui.extensions.QuPathExtension
  * </pre>
  */
-public class DemoExtension implements QuPathExtension {
+public class DemoExtension implements QuPathExtension, GitHubProject {
 	
 	private static final Logger logger = LoggerFactory.getLogger(DemoExtension.class);
 
 	/**
 	 * Display name for your extension
+	 * TODO: define this
 	 */
 	private static final String EXTENSION_NAME = "My Java extension";
 
 	/**
 	 * Short description, used under 'Extensions > Installed extensions'
+	 * TODO: define this
 	 */
 	private static final String EXTENSION_DESCRIPTION = "This is just a demo to show how extensions work";
 
@@ -42,6 +45,16 @@ public class DemoExtension implements QuPathExtension {
 	 * This allows QuPath to inform the user if it seems to be incompatible.
 	 */
 	private static final Version EXTENSION_QUPATH_VERSION = Version.parse("v0.4.0");
+
+	/**
+	 * GitHub repo that your extension can be found at.
+	 * This makes it easier for users to find updates to your extension.
+	 * If you don't want to support this feature, you can remove
+	 * references to GitHubRepo and GitHubProject from your extension.
+	 * TODO: define this
+	 */
+	private static final GitHubRepo EXTENSION_REPOSITORY = GitHubRepo.create(
+			EXTENSION_NAME, "myGitHubUserName", "myGitHubRepo");
 
 	/**
 	 * Flag whether the extension is already installed (might not be needed... but we'll do it anyway)
@@ -109,4 +122,8 @@ public class DemoExtension implements QuPathExtension {
 		return EXTENSION_QUPATH_VERSION;
 	}
 
+	@Override
+	public GitHubRepo getRepository() {
+		return EXTENSION_REPOSITORY;
+	}
 }
