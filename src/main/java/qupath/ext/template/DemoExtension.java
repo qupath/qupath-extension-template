@@ -43,8 +43,9 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 	/**
 	 * QuPath version that the extension is designed to work with.
 	 * This allows QuPath to inform the user if it seems to be incompatible.
+	 * TODO: define this
 	 */
-	private static final Version EXTENSION_QUPATH_VERSION = Version.parse("v0.4.0");
+	private static final Version EXTENSION_QUPATH_VERSION = Version.parse("v0.5.0");
 
 	/**
 	 * GitHub repo that your extension can be found at.
