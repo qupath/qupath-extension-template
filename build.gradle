@@ -13,9 +13,12 @@ plugins {
 // TODO: Change the module name
 ext.moduleName = 'io.github.qupath.extension.template'
 
-// TODO: Define the extension version & provide a short description
-description = 'A simple QuPath extension template'
-
+// TODO: Define the extension name & version, and provide a short description
+base {
+    archivesName = rootProject.name
+    version = '0.0.1-SNAPSHOT'
+    description = 'A simple QuPath extension template'
+}
 
 // TODO: Specify the QuPath version, compatible with the extension.
 // The default 'gradle.ext.qupathVersion' reads this from settings.gradle.
@@ -54,7 +57,6 @@ dependencies {
     testImplementation libs.junit
 }
 
-
 /*
  * Manifest info
  */
@@ -63,6 +65,19 @@ jar {
         attributes("Implementation-Title": project.name,
                 "Implementation-Version": archiveVersion,
                 "Automatic-Module-Name": moduleName)
+    }
+}
+
+/**
+ * Copy necessary attributes, see
+ * - https://github.com/qupath/qupath-extension-template/issues/9
+ * - https://github.com/openjfx/javafx-gradle-plugin#variants
+ */
+configurations.shadow  {
+    def runtimeAttributes = configurations.runtimeClasspath.attributes
+    runtimeAttributes.keySet().each { key ->
+        if (key in [Usage.USAGE_ATTRIBUTE, OperatingSystemFamily.OPERATING_SYSTEM_ATTRIBUTE, MachineArchitecture.ARCHITECTURE_ATTRIBUTE])
+            attributes.attribute(key, runtimeAttributes.getAttribute(key))
     }
 }
 
