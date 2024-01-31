@@ -42,7 +42,7 @@ QuPath itself is developed using IntelliJ, and you can import the extension temp
 However, for development and testing, it can help to import QuPath *and* the extension and have them in your IDE side-by-side.
 
 In IntelliJ, you can do this in a few steps:
-* Get QuPath's source code, as described at https://qupath.readthedocs.io/en/latest/docs/reference/building.html
+* Get QuPath's source code, as described at https://qupath.readthedocs.io/en/stable/docs/reference/building.html
 * Store your extension code in a directory *beside* QuPath's code. So it should be located next to the `qupath` code directory.
 * Import QuPath into IntelliJ as a Gradle project (you don't need to import the extension yet!)
    * See https://www.jetbrains.com/help/idea/work-with-gradle-projects.html
