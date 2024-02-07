@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 public class InterfaceController extends VBox {
     private static final ResourceBundle resources = ResourceBundle.getBundle("qupath.ext.instanseg.ui.strings");
 
+    //TBC if needed in template
     @FXML
     private TextField tfModelDirectory;
 
@@ -33,5 +34,8 @@ public class InterfaceController extends VBox {
     @FXML
     private void runDemoExtension() {
 //        ExtensionCommand.runDemoExtension(tfModelDirectory.getText());
+        System.out.println("Demo extension run");
     }
+
+
 }
