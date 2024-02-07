@@ -1,4 +1,4 @@
-package qupath.ext.template;
+package qupath.ext.template.ui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
