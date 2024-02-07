@@ -2,6 +2,8 @@ package qupath.ext.template;
 
 import javafx.beans.property.BooleanProperty;
 //import javafx.beans.property.StringProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
@@ -9,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import qupath.ext.template.ui.InterfaceController;
 import qupath.fx.dialogs.Dialogs;
+import qupath.fx.prefs.controlsfx.PropertyItemBuilder;
 import qupath.lib.common.Version;
 import qupath.lib.gui.QuPathGUI;
 import qupath.lib.gui.extensions.GitHubProject;
@@ -69,10 +72,29 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 	private boolean isInstalled = false;
 
 	/**
-	 * A 'persistent preference' - showing how to create a property that is stored whenever QuPath is closed
+	 * A 'persistent preference' - showing how to create a property that is stored whenever QuPath is closed.
+	 * This preference will be managed in the main QuPath GUI preferences window.
 	 */
-	private BooleanProperty enableExtensionProperty = PathPrefs.createPersistentPreference(
+	private static BooleanProperty enableExtensionProperty = PathPrefs.createPersistentPreference(
 			"enableExtension", true);
+
+
+	/**
+	 * Another 'persistent preference'.
+	 * This one will be managed using a GUI element created by the extension.
+	 * We use {@link Property<Integer>} rather than {@link IntegerProperty}
+	 * because of the type of GUI element we use to manage it.
+	 */
+	private static Property<Integer> numThreadsProperty = PathPrefs.createPersistentPreference(
+			"demo.num.threads", 1).asObject();
+
+	/**
+	 * An example of how to expose persistent preferences to other classes in your extension.
+	 * @return The persistent preference, so that it can be read or set somewhere else.
+	 */
+	public static Property<Integer> numThreadsProperty() {
+		return numThreadsProperty;
+	}
 
 	/**
 	 * Create a stage for the extension to display
@@ -87,12 +109,35 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 		}
 		isInstalled = true;
 		addPreference(qupath);
+		addPreferenceToPane(qupath);
 		addMenuItem(qupath);
 	}
 
 	/**
 	 * Demo showing how to add a persistent preference to the QuPath preferences pane.
-	 * @param qupath
+	 * The preference will be in a section of the preference pane based on the
+	 * category you set. The description is used as a tooltip.
+	 * @param qupath The currently running QuPathGUI instance.
+	 */
+	private void addPreferenceToPane(QuPathGUI qupath) {
+		var propertyItem = new PropertyItemBuilder<>(enableExtensionProperty, Boolean.class)
+				.name("Enable extension")
+				.category("Demo extension")
+				.description("Enable the demo extension")
+				.build();
+		qupath.getPreferencePane()
+				.getPropertySheet()
+				.getItems()
+				.add(propertyItem);
+	}
+
+	/**
+	 * Demo showing how to add a persistent preference.
+	 * This will be loaded whenever QuPath launches, with the value retained unless
+	 * the preferences are reset.
+	 * However, users will not be able to edit it unless you create a GUI
+	 * element that corresponds with it
+	 * @param qupath The currently running QuPathGUI instance.
 	 */
 	private void addPreference(QuPathGUI qupath) {
 		qupath.getPreferencePane().addPropertyPreference(
