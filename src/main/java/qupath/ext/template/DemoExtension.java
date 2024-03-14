@@ -1,15 +1,23 @@
 package qupath.ext.template;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.Property;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import qupath.ext.template.ui.InterfaceController;
+import qupath.fx.dialogs.Dialogs;
+import qupath.fx.prefs.controlsfx.PropertyItemBuilder;
 import qupath.lib.common.Version;
 import qupath.lib.gui.QuPathGUI;
-import qupath.lib.gui.dialogs.Dialogs;
 import qupath.lib.gui.extensions.GitHubProject;
 import qupath.lib.gui.extensions.QuPathExtension;
 import qupath.lib.gui.prefs.PathPrefs;
+
+import java.io.IOException;
 
 
 /**
@@ -63,10 +71,34 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 	private boolean isInstalled = false;
 
 	/**
-	 * A 'persistent preference' - showing how to create a property that is stored whenever QuPath is closed
+	 * A 'persistent preference' - showing how to create a property that is stored whenever QuPath is closed.
+	 * This preference will be managed in the main QuPath GUI preferences window.
 	 */
-	private BooleanProperty enableExtensionProperty = PathPrefs.createPersistentPreference(
+	private static BooleanProperty enableExtensionProperty = PathPrefs.createPersistentPreference(
 			"enableExtension", true);
+
+
+	/**
+	 * Another 'persistent preference'.
+	 * This one will be managed using a GUI element created by the extension.
+	 * We use {@link Property<Integer>} rather than {@link IntegerProperty}
+	 * because of the type of GUI element we use to manage it.
+	 */
+	private static Property<Integer> numThreadsProperty = PathPrefs.createPersistentPreference(
+			"demo.num.threads", 1).asObject();
+
+	/**
+	 * An example of how to expose persistent preferences to other classes in your extension.
+	 * @return The persistent preference, so that it can be read or set somewhere else.
+	 */
+	public static Property<Integer> numThreadsProperty() {
+		return numThreadsProperty;
+	}
+
+	/**
+	 * Create a stage for the extension to display
+	 */
+	private Stage stage;
 
 	@Override
 	public void installExtension(QuPathGUI qupath) {
@@ -76,12 +108,35 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 		}
 		isInstalled = true;
 		addPreference(qupath);
+		addPreferenceToPane(qupath);
 		addMenuItem(qupath);
 	}
 
 	/**
 	 * Demo showing how to add a persistent preference to the QuPath preferences pane.
-	 * @param qupath
+	 * The preference will be in a section of the preference pane based on the
+	 * category you set. The description is used as a tooltip.
+	 * @param qupath The currently running QuPathGUI instance.
+	 */
+	private void addPreferenceToPane(QuPathGUI qupath) {
+		var propertyItem = new PropertyItemBuilder<>(enableExtensionProperty, Boolean.class)
+				.name("Enable extension")
+				.category("Demo extension")
+				.description("Enable the demo extension")
+				.build();
+		qupath.getPreferencePane()
+				.getPropertySheet()
+				.getItems()
+				.add(propertyItem);
+	}
+
+	/**
+	 * Demo showing how to add a persistent preference.
+	 * This will be loaded whenever QuPath launches, with the value retained unless
+	 * the preferences are reset.
+	 * However, users will not be able to edit it unless you create a GUI
+	 * element that corresponds with it
+	 * @param qupath The currently running QuPathGUI instance.
 	 */
 	private void addPreference(QuPathGUI qupath) {
 		qupath.getPreferencePane().addPropertyPreference(
@@ -99,15 +154,28 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 	private void addMenuItem(QuPathGUI qupath) {
 		var menu = qupath.getMenu("Extensions>" + EXTENSION_NAME, true);
 		MenuItem menuItem = new MenuItem("My menu item");
-		menuItem.setOnAction(e -> {
-			Dialogs.showMessageDialog(EXTENSION_NAME,
-					"Hello! This is my Java extension.");
-		});
+		menuItem.setOnAction(e -> createStage());
 		menuItem.disableProperty().bind(enableExtensionProperty.not());
 		menu.getItems().add(menuItem);
 	}
-	
-	
+
+	/**
+	 * Demo showing how to create a new stage with a JavaFX FXML interface.
+	 */
+	private void createStage() {
+		if (stage == null) {
+			try {
+				stage = new Stage();
+				Scene scene = new Scene(InterfaceController.createInstance());
+				stage.setScene(scene);
+			} catch (IOException e) {
+				Dialogs.showErrorMessage("Extension Error", "GUI loading failed");
+				logger.error("Unable to load extension interface FXML", e);
+			}
+		}
+		stage.show();
+	}
+
 	@Override
 	public String getName() {
 		return EXTENSION_NAME;
