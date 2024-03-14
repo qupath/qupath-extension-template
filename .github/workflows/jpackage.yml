@@ -26,15 +26,14 @@ jobs:
         distribution: 'temurin'
 
     - name: Validate Gradle wrapper
-      uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
+      uses: gradle/wrapper-validation-action@v2
 
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      uses: gradle/gradle-build-action@v3
       with:
         arguments: build
 
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       with:
-        name: jar
         path: build/libs
         retention-days: 7
