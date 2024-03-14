@@ -9,6 +9,7 @@ jobs:
     uses: ./.github/workflows/jpackage.yml
 
   release:
+    needs: jpackage
     permissions:
       contents: write
     runs-on: ubuntu-latest
