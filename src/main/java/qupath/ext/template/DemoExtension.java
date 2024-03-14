@@ -1,7 +1,6 @@
 package qupath.ext.template;
 
 import javafx.beans.property.BooleanProperty;
-//import javafx.beans.property.StringProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.Property;
 import javafx.scene.Scene;
