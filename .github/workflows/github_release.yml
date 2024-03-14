@@ -17,6 +17,9 @@ jobs:
 
       - uses: actions/download-artifact@v4
 
+      - name: Debug
+        run: ls -lahR
+
       - name: Release
         env:
           GH_TOKEN: ${{ github.token }}
