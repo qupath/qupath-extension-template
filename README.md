@@ -98,7 +98,7 @@ This should be compatible with QuPath's license -- see https://github.com/qupath
 
 ### Easy install
 
-If you follow some conventions in naming your extension and making releases, then other QuPath will find it easy to automatically
+If you follow some conventions in naming your extension and making releases, then other QuPath users will find it easy to automatically
 install and update your extension!
 
 First, we suggest you name your extension `qupath-extension-[something]`, and keep it in its own repository (named the same as the extension),
