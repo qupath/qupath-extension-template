@@ -94,6 +94,34 @@ Add a license file to your GitHub repo so that others know what they can and can
 
 This should be compatible with QuPath's license -- see https://github.com/qupath/qupath
 
+## Repository configuration
+
+### Easy install
+
+If you follow some conventions in naming your extension and making releases, then other QuPath users will find it easy to automatically
+install and update your extension!
+
+First, we suggest you name your extension `qupath-extension-[something]`, and keep it in its own repository (named the same as the extension),
+separate from other projects.
+
+Next, when you want to publish a new version of your extension, use the `github_release.yml` workflow included in this repository.
+
+To do so, you'd need to navigate to `Actions -> Make draft release -> Run workflow -> Run workflow` as shown in the following screenshot:
+
+![Screenshot from 2024-03-14 18-44-42](https://github.com/alanocallaghan/qupath-extension-template/assets/10779688/4712a209-eda7-4f80-8bed-bbab20e4f50a)
+
+This will automatically build the extension, and create a draft release containing the extension jar (and its associated sources and javadoc).
+You can then navigate to `Releases` and fill out information about the release --- the version, any significant changes, etc.
+Once published, users will be able to automatically install the extension as described here:
+https://qupath.readthedocs.io/en/0.5/docs/intro/extensions.html#installing-extensions
+
+### Automatic updates
+
+To enable easy installation and automatic updates in QuPath, fill in the (**public**) GitHub owner and repository 
+for the extension.
+
+https://github.com/qupath/qupath-extension-template/blob/778f02759d8a7fe5c73f1751edd58b6494beff9f/src/main/java/qupath/ext/template/DemoExtension.java#L65-L66
+
 ### Replace this readme
 
 Don't forget to replace the contents of this readme with your own!
