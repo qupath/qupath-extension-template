@@ -25,8 +25,8 @@ base {
 ext.qupathVersion = gradle.ext.qupathVersion
 
 // TODO: Specify the Java version compatible with the extension
-// Should be Java 17 for QuPath v0.5.0
-ext.qupathJavaVersion = 17
+// Should be Java 21 for QuPath v0.6.0
+ext.qupathJavaVersion = 21
 
 /**
  * Define dependencies.
@@ -105,7 +105,7 @@ tasks.register("copyDependencies", Copy) {
 }
 
 /*
- * Ensure Java 17 compatibility, and include sources and javadocs when building.
+ * Ensure Java language level compatibility, and include sources and javadocs when building.
  */
 java {
     toolchain {
