@@ -22,7 +22,7 @@ public class InterfaceController extends VBox {
 
     /**
      * Create a new instance of the interface controller.
-     * @return
+     * @return a new instance of the interface controller
      * @throws IOException
      */
     public static InterfaceController createInstance() throws IOException {
