@@ -2,10 +2,15 @@
 
 This repo contains a template and instructions to help create a new extension for [QuPath](https://qupath.github.io).
 
-It already contains two minimal extensions, so the first task is to make sure that they work.
+It already contains two minimal extensions - one using Java, one using Groovy - so the first task is to make sure that they work.
 Then, it's a matter of customizing the code to make it more useful.
 
-> There are two extensions to show that you can use either Java or Groovy.
+> **Update!** 
+> For QuPath v0.6.0 this repo switched to use Kotlin DSL for Gradle build files - 
+> and also to use the [QuPath Gradle Plugin](https://github.com/qupath/qupath-gradle-plugin).
+> 
+> The outcome is that the build files are _much_ simpler.
+
 
 ## Build the extension
 
@@ -58,14 +63,14 @@ Now when you run QuPath from IntelliJ, your extension should (hopefully) be foun
 
 There are a few fixed steps to customizing the extension, and then the main creative part where you add your own code.
 
-### Update `settings.gradle`
+### Update `settings.gradle.kts`
 
-Open `settings.gradle` and check the comment lines flagged with `\\TODO`.
+Open `settings.gradle.kts` and check the comment lines flagged with `\\TODO`.
 These point you towards parts you may well need to change.
 
-### Update `build.gradle`
+### Update `build.gradle.kts`
 
-Open `build.gradle` and follow a similar process to with `settings.gradle`, to update the bits flagged with `\\TODO`.
+Open `build.gradle.kts` and follow a similar process to with `settings.gradle.kts`, to update the bits flagged with `\\TODO`.
 
 ### Create the extension Java or Groovy file(s)
 
