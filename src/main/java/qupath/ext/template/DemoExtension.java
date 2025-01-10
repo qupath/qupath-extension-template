@@ -18,6 +18,7 @@ import qupath.lib.gui.extensions.QuPathExtension;
 import qupath.lib.gui.prefs.PathPrefs;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 
 /**
@@ -33,20 +34,26 @@ import java.io.IOException;
  * </pre>
  */
 public class DemoExtension implements QuPathExtension, GitHubProject {
-	
+	private static final ResourceBundle resources = ResourceBundle.getBundle("qupath.ext.template.ui.strings");
+
+	public static ResourceBundle getResources() {
+		return resources;
+	}
+
 	private static final Logger logger = LoggerFactory.getLogger(DemoExtension.class);
 
 	/**
 	 * Display name for your extension
 	 * TODO: define this
 	 */
-	private static final String EXTENSION_NAME = "My Java extension";
+	private static final String EXTENSION_NAME = resources.getString("name");
 
 	/**
 	 * Short description, used under 'Extensions > Installed extensions'
 	 * TODO: define this
 	 */
-	private static final String EXTENSION_DESCRIPTION = "This is just a demo to show how extensions work";
+	private static final String EXTENSION_DESCRIPTION = resources.getString("description");
+
 
 	/**
 	 * QuPath version that the extension is designed to work with.
@@ -74,7 +81,7 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 	 * A 'persistent preference' - showing how to create a property that is stored whenever QuPath is closed.
 	 * This preference will be managed in the main QuPath GUI preferences window.
 	 */
-	private static BooleanProperty enableExtensionProperty = PathPrefs.createPersistentPreference(
+	private static final BooleanProperty enableExtensionProperty = PathPrefs.createPersistentPreference(
 			"enableExtension", true);
 
 
@@ -84,15 +91,15 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 	 * We use {@link Property<Integer>} rather than {@link IntegerProperty}
 	 * because of the type of GUI element we use to manage it.
 	 */
-	private static Property<Integer> numThreadsProperty = PathPrefs.createPersistentPreference(
-			"demo.num.threads", 1).asObject();
+	private static final Property<Integer> numericOption = PathPrefs.createPersistentPreference(
+			"demo.num.option", 1).asObject();
 
 	/**
 	 * An example of how to expose persistent preferences to other classes in your extension.
 	 * @return The persistent preference, so that it can be read or set somewhere else.
 	 */
-	public static Property<Integer> numThreadsProperty() {
-		return numThreadsProperty;
+	public static Property<Integer> numericOptionProperty() {
+		return numericOption;
 	}
 
 	/**
@@ -107,7 +114,6 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 			return;
 		}
 		isInstalled = true;
-		addPreference(qupath);
 		addPreferenceToPane(qupath);
 		addMenuItem(qupath);
 	}
@@ -119,8 +125,8 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 	 * @param qupath The currently running QuPathGUI instance.
 	 */
 	private void addPreferenceToPane(QuPathGUI qupath) {
-		var propertyItem = new PropertyItemBuilder<>(enableExtensionProperty, Boolean.class)
-				.name("Enable extension")
+        var propertyItem = new PropertyItemBuilder<>(enableExtensionProperty, Boolean.class)
+				.name(resources.getString("menu.enable"))
 				.category("Demo extension")
 				.description("Enable the demo extension")
 				.build();
@@ -130,26 +136,10 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 				.add(propertyItem);
 	}
 
-	/**
-	 * Demo showing how to add a persistent preference.
-	 * This will be loaded whenever QuPath launches, with the value retained unless
-	 * the preferences are reset.
-	 * However, users will not be able to edit it unless you create a GUI
-	 * element that corresponds with it
-	 * @param qupath The currently running QuPathGUI instance.
-	 */
-	private void addPreference(QuPathGUI qupath) {
-		qupath.getPreferencePane().addPropertyPreference(
-				enableExtensionProperty,
-				Boolean.class,
-				"Enable my extension",
-				EXTENSION_NAME,
-				"Enable my extension");
-	}
 
 	/**
 	 * Demo showing how a new command can be added to a QuPath menu.
-	 * @param qupath
+	 * @param qupath The QuPath GUI
 	 */
 	private void addMenuItem(QuPathGUI qupath) {
 		var menu = qupath.getMenu("Extensions>" + EXTENSION_NAME, true);
@@ -167,9 +157,12 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 			try {
 				stage = new Stage();
 				Scene scene = new Scene(InterfaceController.createInstance());
+				stage.setTitle(resources.getString("stage.title"));
 				stage.setScene(scene);
+				stage.setMinWidth(100); // this stops users from making the window tiny
+				stage.setMinHeight(100);
 			} catch (IOException e) {
-				Dialogs.showErrorMessage("Extension Error", "GUI loading failed");
+				Dialogs.showErrorMessage(resources.getString("error"), resources.getString("error.gui-loading-failed"));
 				logger.error("Unable to load extension interface FXML", e);
 			}
 		}

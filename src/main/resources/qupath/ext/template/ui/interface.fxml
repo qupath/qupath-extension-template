@@ -6,11 +6,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
 <fx:root type="VBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1">
-    <Button onAction="#runDemoExtension" text="Run"/>
-    <Spinner fx:id="threadSpinner" prefWidth="75.0">
-        <valueFactory>
-            <SpinnerValueFactory.IntegerSpinnerValueFactory max="96" min="1" />
-        </valueFactory>
-    </Spinner>
+    <VBox spacing="5" alignment="CENTER_RIGHT">
+        <padding>
+            <Insets topRightBottomLeft="3"/>
+        </padding>
+        <Button onAction="#runDemoExtension" text="%run.button.text">
+            <Tooltip text="%run.button.tooltip"/>
+        </Button>
+        <HBox spacing="2" alignment="CENTER_LEFT">
+            <Label text="%option.integer.text">
+                <Tooltip text="%option.integer.tooltip"/>
+            </Label>
+            <Spinner fx:id="integerOptionSpinner" prefWidth="75.0">
+                <valueFactory>
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory max="96" min="1" />
+                </valueFactory>
+            </Spinner>
+        </HBox>
+    </VBox>
 </fx:root>
