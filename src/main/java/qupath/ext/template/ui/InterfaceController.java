@@ -52,7 +52,7 @@ public class InterfaceController extends VBox {
         integerOptionSpinner.getValueFactory().valueProperty().addListener((observableValue, oldValue, newValue) -> {
             Dialogs.showInfoNotification(
                     resources.getString("title"),
-                    String.format(resources.getString("integer.option.set-to"), newValue));
+                    String.format(resources.getString("option.integer.option-set-to"), newValue));
         });
     }
 
