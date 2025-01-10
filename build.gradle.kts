@@ -1,10 +1,10 @@
 plugins {
-    // QuPath Gradle extension convention plugin
-    id("qupath-conventions")
     // Support writing the extension in Groovy (remove this if you don't want to)
     groovy
     // To optionally create a shadow/fat jar that bundle up any non-core dependencies
     id("com.gradleup.shadow") version "8.3.5"
+    // QuPath Gradle extension convention plugin
+    id("qupath-conventions")
 }
 
 // TODO: Configure your extension here (please change the defaults!)
