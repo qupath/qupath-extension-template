@@ -35,6 +35,10 @@ import java.util.ResourceBundle;
  */
 public class DemoExtension implements QuPathExtension, GitHubProject {
 	// TODO: add and modify strings to this resource bundle as needed
+	/**
+	 * A resource bundle containing all the text used by the extension. This may be useful for translation to other languages.
+	 * Note that this is optional and you can define the text within the code and FXML files that you use.
+	 */
 	private static final ResourceBundle resources = ResourceBundle.getBundle("qupath.ext.template.ui.strings");
 	private static final Logger logger = LoggerFactory.getLogger(DemoExtension.class);
 
