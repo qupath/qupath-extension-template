@@ -86,15 +86,15 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 	 * We use {@link Property<Integer>} rather than {@link IntegerProperty}
 	 * because of the type of GUI element we use to manage it.
 	 */
-	private static final Property<Integer> numericOption = PathPrefs.createPersistentPreference(
+	private static final Property<Integer> integerOption = PathPrefs.createPersistentPreference(
 			"demo.num.option", 1).asObject();
 
 	/**
 	 * An example of how to expose persistent preferences to other classes in your extension.
 	 * @return The persistent preference, so that it can be read or set somewhere else.
 	 */
-	public static Property<Integer> numericOptionProperty() {
-		return numericOption;
+	public static Property<Integer> integerOptionProperty() {
+		return integerOption;
 	}
 
 	/**
@@ -164,13 +164,6 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 		stage.show();
 	}
 
-	/**
-	 * Get the resource bundle containing all externalised strings for the extension.
-	 * @return The single resource bundle shared across all classes and UI elements.
-	 */
-	public static ResourceBundle getResources() {
-		return resources;
-	}
 
 	@Override
 	public String getName() {

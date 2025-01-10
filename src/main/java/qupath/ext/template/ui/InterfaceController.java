@@ -8,12 +8,14 @@ import qupath.ext.template.DemoExtension;
 import qupath.fx.dialogs.Dialogs;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 /**
  * Controller for UI pane contained in interface.fxml
  */
 
 public class InterfaceController extends VBox {
+    private static final ResourceBundle resources = ResourceBundle.getBundle("qupath.ext.template.ui.strings");
 
 
     @FXML
@@ -30,7 +32,7 @@ public class InterfaceController extends VBox {
 
     private InterfaceController() throws IOException {
         var url = InterfaceController.class.getResource("interface.fxml");
-        FXMLLoader loader = new FXMLLoader(url, DemoExtension.getResources());
+        FXMLLoader loader = new FXMLLoader(url, resources);
         loader.setRoot(this);
         loader.setController(this);
         loader.load();
@@ -40,19 +42,19 @@ public class InterfaceController extends VBox {
         // it may be better to present them all to the user in the main extension GUI,
         // binding them to GUI elements, so they are updated when the user interacts with
         // the GUI, and so that the GUI elements are updated if the preference changes
-        integerOptionSpinner.getValueFactory().valueProperty().bindBidirectional(DemoExtension.numericOptionProperty());
+        integerOptionSpinner.getValueFactory().valueProperty().bindBidirectional(DemoExtension.integerOptionProperty());
         integerOptionSpinner.getValueFactory().valueProperty().addListener((observableValue, oldValue, newValue) -> {
             Dialogs.showInfoNotification(
-                    DemoExtension.getResources().getString("title"),
-                    String.format(DemoExtension.getResources().getString("option-set-to"), newValue));
+                    resources.getString("title"),
+                    String.format(resources.getString("option-set-to"), newValue));
         });
     }
 
     @FXML
     private void runDemoExtension() {
         Dialogs.showInfoNotification(
-                DemoExtension.getResources().getString("run.title"),
-                DemoExtension.getResources().getString("run.message")
+                resources.getString("run.title"),
+                resources.getString("run.message")
         );
     }
 
