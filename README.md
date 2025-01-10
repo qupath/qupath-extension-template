@@ -29,7 +29,7 @@ You'll be prompted to create a user directory if you don't already have one.
 The minimal extension here doesn't do much, but it should at least install a new command under the 'Extensions' menu in 
 QuPath.
 
-> In case your exte[settings.gradle.kts](../qupath/settings.gradle.kts)nsion contains external dependencies beyond what QuPath already includes, you can create a 
+> In case your extension contains external dependencies beyond what QuPath already includes, you can create a 
 > [single jar file](https://imperceptiblethoughts.com/shadow/introduction/#benefits-of-shadow) that bundles these along 
 > with your extension by using
 > ```bash
