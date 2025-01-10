@@ -34,12 +34,8 @@ import java.util.ResourceBundle;
  * </pre>
  */
 public class DemoExtension implements QuPathExtension, GitHubProject {
+	// TODO: add and modify strings to this resource bundle as needed
 	private static final ResourceBundle resources = ResourceBundle.getBundle("qupath.ext.template.ui.strings");
-
-	public static ResourceBundle getResources() {
-		return resources;
-	}
-
 	private static final Logger logger = LoggerFactory.getLogger(DemoExtension.class);
 
 	/**
@@ -53,7 +49,6 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 	 * TODO: define this
 	 */
 	private static final String EXTENSION_DESCRIPTION = resources.getString("description");
-
 
 	/**
 	 * QuPath version that the extension is designed to work with.
@@ -167,6 +162,14 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 			}
 		}
 		stage.show();
+	}
+
+	/**
+	 * Get the resource bundle containing all externalised strings for the extension.
+	 * @return The single resource bundle shared across all classes and UI elements.
+	 */
+	public static ResourceBundle getResources() {
+		return resources;
 	}
 
 	@Override
