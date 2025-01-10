@@ -12,18 +12,18 @@
         <padding>
             <Insets topRightBottomLeft="3"/>
         </padding>
-        <Button onAction="#runDemoExtension" text="%run.button.text">
-            <Tooltip text="%run.button.tooltip"/>
-        </Button>
         <HBox spacing="2" alignment="CENTER_LEFT">
             <Label text="%option.integer.text">
                 <Tooltip text="%option.integer.tooltip"/>
             </Label>
             <Spinner fx:id="integerOptionSpinner" prefWidth="75.0">
                 <valueFactory>
-                    <SpinnerValueFactory.IntegerSpinnerValueFactory max="96" min="1" />
+                    <SpinnerValueFactory.IntegerSpinnerValueFactory max="100" min="1" />
                 </valueFactory>
             </Spinner>
         </HBox>
+        <Button onAction="#runDemoExtension" text="%run.button.text">
+            <Tooltip text="%run.button.tooltip"/>
+        </Button>
     </VBox>
 </fx:root>

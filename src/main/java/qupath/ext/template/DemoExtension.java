@@ -158,8 +158,7 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 				stage.initOwner(QuPathGUI.getInstance().getStage());
 				stage.setTitle(resources.getString("stage.title"));
 				stage.setScene(scene);
-				stage.setMinWidth(100); // this stops users from making the window tiny
-				stage.setMinHeight(100);
+				stage.setResizable(false);
 			} catch (IOException e) {
 				Dialogs.showErrorMessage(resources.getString("error"), resources.getString("error.gui-loading-failed"));
 				logger.error("Unable to load extension interface FXML", e);
