@@ -79,7 +79,6 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 	private static final BooleanProperty enableExtensionProperty = PathPrefs.createPersistentPreference(
 			"enableExtension", true);
 
-
 	/**
 	 * Another 'persistent preference'.
 	 * This one will be managed using a GUI element created by the extension.
@@ -152,6 +151,7 @@ public class DemoExtension implements QuPathExtension, GitHubProject {
 			try {
 				stage = new Stage();
 				Scene scene = new Scene(InterfaceController.createInstance());
+				stage.initOwner(QuPathGUI.getInstance().getStage());
 				stage.setTitle(resources.getString("stage.title"));
 				stage.setScene(scene);
 				stage.setMinWidth(100); // this stops users from making the window tiny
