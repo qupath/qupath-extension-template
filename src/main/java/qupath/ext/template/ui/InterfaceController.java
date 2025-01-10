@@ -2,9 +2,7 @@ package qupath.ext.template.ui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import qupath.ext.template.DemoExtension;
 import qupath.fx.dialogs.Dialogs;
@@ -22,6 +20,11 @@ public class InterfaceController extends VBox {
     @FXML
     private Spinner<Integer> threadSpinner;
 
+    /**
+     * Create a new instance of the interface controller.
+     * @return a new instance of the interface controller
+     * @throws IOException
+     */
     public static InterfaceController createInstance() throws IOException {
         return new InterfaceController();
     }

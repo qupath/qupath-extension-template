@@ -2,10 +2,15 @@
 
 This repo contains a template and instructions to help create a new extension for [QuPath](https://qupath.github.io).
 
-It already contains two minimal extensions, so the first task is to make sure that they work.
+It already contains two minimal extensions - one using Java, one using Groovy - so the first task is to make sure that they work.
 Then, it's a matter of customizing the code to make it more useful.
 
-> There are two extensions to show that you can use either Java or Groovy.
+> **Update!** 
+> For QuPath v0.6.0 this repo switched to use Kotlin DSL for Gradle build files - 
+> and also to use the [QuPath Gradle Plugin](https://github.com/qupath/qupath-gradle-plugin).
+> 
+> The outcome is that the build files are _much_ simpler.
+
 
 ## Build the extension
 
@@ -33,39 +38,88 @@ QuPath.
 > If you don't do that, you'll need to drag *all* the extra dependences onto QuPath to install them as well.
 
 
+## Configure the extension
+
+Edit `settings.gradle.kts` to specify which version of QuPath your extension should be compatible with, e.g.
+
+```kotlin
+qupath {
+    version = "0.6.0-SNAPSHOT"
+}
+```
+
+Edit `build.gradle.kts` to specify the details of your extension
+
+```kotlin
+qupathExtension {
+  name = "qupath-extension-template"
+  group = "io.github.qupath"
+  version = "0.1.0-SNAPSHOT"
+  description = "A simple QuPath extension"
+  automaticModule = "io.github.qupath.extension.template"
+}
+```
+
+
+## Run QuPath + the extension
+
+During development, your probably want to run QuPath easily with your extension installed for debugging.
+
+### 0. Make sure you have Java installed
+You'll need to install Java first.
+
+At the time of writing, we use a Java 21 JDK downloaded from https://adoptium.net/
+
+> Java 21 is a 'Long Term Support' release - which is why we use it instead of the very latest version.
+
+### 1. Get QuPath's source code
+You can find instructions at https://qupath.readthedocs.io/en/stable/docs/reference/building.html
+
+### 2. Create an `include-extra` file
+Create a file called `include-extra` in the root directory of the QuPath source code (*not* the extension code!).
+
+Set the contents of this file to:
+```
+[includeBuild]
+/path/to/your/extension
+
+[dependencies]
+extension-group:extension-name
+```
+replacing the default lines where needed.
+
+For example, to build the extension with the names given above you'd use
+```
+[includeBuild]
+../qupath-extension-template
+
+[dependencies]
+io.github.qupath:qupath-extension-template
+```
+
+### 3. Run QuPath
+Run QuPath from the command line using
+```
+gradlew run
+```
+If all goes well, QuPath should launch and you can check the *Extensions* mention to confirm the extension is installed.
+
+
 ## Set up in an IDE (optional)
 
 During development, things are likely to be much easier if you work within an IDE.
 
 QuPath itself is developed using IntelliJ, and you can import the extension template there.
 
-However, for development and testing, it can help to import QuPath *and* the extension and have them in your IDE side-by-side.
+The setup process is as above, and you'll need a a [Run configuration](https://www.jetbrains.com/help/idea/run-debug-configuration.html) 
+to call `gradlew run`.
 
-In IntelliJ, you can do this in a few steps:
-* Get QuPath's source code, as described at https://qupath.readthedocs.io/en/stable/docs/reference/building.html
-* Store your extension code in a directory *beside* QuPath's code. So it should be located next to the `qupath` code directory.
-* Import QuPath into IntelliJ as a Gradle project (you don't need to import the extension yet!)
-   * See https://www.jetbrains.com/help/idea/work-with-gradle-projects.html
-* Within `qupath/settings.gradle` add the line `includeFlat 'your-extension-code-directory'` (updating the code directory as needed)
-* Refresh the Gradle project in IntelliJ, and your extension code should appear
-* Create a [Run configuration](https://www.jetbrains.com/help/idea/run-debug-configuration.html) in IntelliJ to launch QuPath. An example of how that looks is shown below:
-
-<img src="qupath-intellij.png" alt="QuPath run configuration in IntelliJ" width="428" />
-
-Now when you run QuPath from IntelliJ, your extension should (hopefully) be found - there's no need to add it by drag & drop.
 
 ## Customize the extension
 
-There are a few fixed steps to customizing the extension, and then the main creative part where you add your own code.
+Now you're ready for the creative part.
 
-### Update `settings.gradle`
-
-Open `settings.gradle` and check the comment lines flagged with `\\TODO`.
-These point you towards parts you may well need to change.
-
-### Update `build.gradle`
-
-Open `build.gradle` and follow a similar process to with `settings.gradle`, to update the bits flagged with `\\TODO`.
+You can develop the extension using either Java or Groovy - the template includes examples of both.
 
 ### Create the extension Java or Groovy file(s)
 
