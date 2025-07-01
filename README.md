@@ -44,7 +44,7 @@ Edit `settings.gradle.kts` to specify which version of QuPath your extension sho
 
 ```kotlin
 qupath {
-    version = "0.6.0-SNAPSHOT"
+    version = "0.6.0"
 }
 ```
 
