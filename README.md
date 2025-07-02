@@ -44,7 +44,7 @@ Edit `settings.gradle.kts` to specify which version of QuPath your extension sho
 
 ```kotlin
 qupath {
-    version = "0.6.0-SNAPSHOT"
+    version = "0.6.0"
 }
 ```
 
@@ -169,12 +169,20 @@ You can then navigate to `Releases` and fill out information about the release -
 Once published, users will be able to automatically install the extension as described here:
 https://qupath.readthedocs.io/en/0.5/docs/intro/extensions.html#installing-extensions
 
-### Automatic updates
+### Catalogs
 
-To enable easy installation and automatic updates in QuPath, fill in the (**public**) GitHub owner and repository 
-for the extension.
+QuPath's extension manager can easily install an extension if it is referenced in a **catalog**.
+A catalog is a JSON file hosted on a GitHub repository containing information about extensions, making it possible to easily manage them from QuPath.
 
-https://github.com/qupath/qupath-extension-template/blob/778f02759d8a7fe5c73f1751edd58b6494beff9f/src/main/java/qupath/ext/template/DemoExtension.java#L65-L66
+To create a catalog, follow the [extension catalog model documentation](https://qupath.github.io/extension-catalog-model/).
+You will need to create a JSON file containing specific information about your extension and host it on a dedicated GitHub repository.
+Once the catalog is created, any user will be able to easily install your catalog by:
+
+* Opening QuPath's extension manager by clicking on `Extensions` -> `Manage extensions` in QuPath.
+* Adding the URL to your catalog by clicking on `Manage extension catalogs` -> `Add` in the extension manager.
+* Clicking on the `+` symbol next to your extension in the extension manager.
+
+QuPath will then make it easy to manage your extension and automatically inform users when an update is available.
 
 ### Replace this readme
 
