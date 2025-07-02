@@ -4,23 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  jpackage:
-    name: Run JPackage
-    uses: ./.github/workflows/jpackage.yml
-
-  release:
-    needs: jpackage
+  build:
     permissions:
       contents: write
-    runs-on: ubuntu-latest
-    steps:
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - uses: actions/download-artifact@v4
-
-      - name: Release
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh release create --draft ${{ github.ref_name }} --title ${{ github.ref_name }} build/*.jar
+    uses: qupath/actions/.github/workflows/github-release.yml@main
